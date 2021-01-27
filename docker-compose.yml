@@ -1,0 +1,44 @@
+version: "3.8"
+
+services: 
+  # backend:
+  #   build: 
+  #     context: .
+  #   container_name: illusion_backend
+  #   depends_on: 
+  #     - db
+  #   environment: # Handle these with ansible or .env vars in production
+  #     - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
+  #     - SPRING_DATASOURCE_USERNAME=compose-postgres
+  #     - SPRING_DATASOURCE_PASSWORD=compose-postgres
+  #     - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    environment: 
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    ports: 
+      - 5432:5432
+
+  #TODO: Should pgAdmin depend on postgres?
+  pgadmin:
+    image: 'dpage/pgadmin4'
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD=root
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    ports:
+      - 53603:53603
+      - 80:80
+
+volumes:
+  db-data:
+  pgadmin-data:
