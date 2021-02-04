@@ -25,10 +25,10 @@ public class EmployeeController {
        return employeeService.findAll(); 
     }
 
-    // @PostMapping("/employees")
-    // Employee newEmployee(@RequestBody Employee newEmployee) {
-    //     return repository.save(newEmployee);
-    // }
+    @PostMapping("/employees")
+    Employee create(@RequestBody Employee newEmployee) {
+        return employeeService.create(newEmployee);
+    }
 
     // // Single item
 

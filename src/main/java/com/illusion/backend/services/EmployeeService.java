@@ -17,13 +17,16 @@ public class EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @Transactional
     public List<Employee> findAll() {
         List<Employee> employees = new ArrayList<>();
         employeeRepository.findAll().forEach(employees::add);
 
         return employees;
     }
+
+	public Employee create(Employee newEmployee) {
+		return employeeRepository.save(newEmployee);
+	}
 
     // @Transactional
     // public 
